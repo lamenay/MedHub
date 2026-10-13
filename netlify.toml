@@ -5,12 +5,15 @@
 [functions]
   included_files = ["templates/**"]
 
+# Статические файлы (CSS, JS, картинки) отдаем напрямую из папки static
 [[redirects]]
   from = "/static/*"
   to = "/:splat"
   status = 200
 
+# Все остальные страницы принудительно направляем в Python-функцию Flask
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/app"
   status = 200
+  force = true
