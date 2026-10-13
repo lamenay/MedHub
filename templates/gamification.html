@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Древо достижений | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section section-gamification">
+    <div class="container">
+        <div class="gamification-header">
+            <span class="pill-badge">Игровая форма обучения</span>
+            <h2 class="section-title">Интерактивное древо достижений</h2>
+            <p class="section-subtitle">Открывайте навыки, повышайте врачебный ранг и получайте дополнительные баллы для ординатуры</p>
+        </div>
+
+        <div class="tree-container">
+            <div class="tree-node unlocked">
+                <div class="node-icon">🩺</div>
+                <h4>Ассистент кафедры</h4>
+                <p>1-я ступень: посещение 3 вводных заседаний</p>
+                <span class="badge-status">Освоено</span>
+            </div>
+            <div class="tree-line active"></div>
+            <div class="tree-node unlocked">
+                <div class="node-icon">💉</div>
+                <h4>Оператор манипуляций</h4>
+                <p>Практика: наложение 10 хирургических узлов</p>
+                <span class="badge-status">Освоено</span>
+            </div>
+            <div class="tree-line active"></div>
+            <div class="tree-node current">
+                <div class="node-icon">📑</div>
+                <h4>Докладчик-исследователь</h4>
+                <p>Наука: подготовка клинического кейса</p>
+                <span class="badge-status in-progress">В процессе (75%)</span>
+            </div>
+            <div class="tree-line"></div>
+            <div class="tree-node locked">
+                <div class="node-icon">⭐</div>
+                <h4>Главный резидент СНК</h4>
+                <p>Финал: победа на олимпиаде + публикация в ВАК</p>
+                <span class="badge-status locked-badge">Заблокировано</span>
+            </div>
+        </div>
+
+        <div class="honor-board">
+            <h3 class="honor-title">🏆 Доска почёта: Топ резидентов семестра</h3>
+            <div class="honor-grid">
+                <div class="honor-card">
+                    <div class="honor-rank">1</div>
+                    <div class="honor-info">
+                        <strong>Смирнова Екатерина (5 курс)</strong>
+                        <span>12 докладов • 1 место на Всероссийской олимпиаде по хирургии</span>
+                    </div>
+                </div>
+                <div class="honor-card">
+                    <div class="honor-rank">2</div>
+                    <div class="honor-info">
+                        <strong>Гареев Руслан (4 курс)</strong>
+                        <span>8 докладов • Публикация в журнале ВАК</span>
+                    </div>
+                </div>
+                <div class="honor-card">
+                    <div class="honor-rank">3</div>
+                    <div class="honor-info">
+                        <strong>Валитов Никита (3 курс)</strong>
+                        <span>Победитель клинического разбора по кардиологии</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

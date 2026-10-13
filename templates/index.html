@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container hero-banner-section">
+    <div class="top-announcement">
+        Внимание: обновлено расписание практических занятий в симуляционном центре на весенний семестр. <a href="{{ url_for('directions') }}">Смотреть кружки</a>
+    </div>
+
+    <!-- Мозаичная Bento-сетка в стиле дизайна образца -->
+    <div class="bento-grid">
+        <div class="bento-card card-white card-span-2">
+            <h2 class="card-main-title">Клинический старт и Специалитет</h2>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-number accent-purple">12</span>
+                    <span class="stat-label">направлений СНК</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">480+</span>
+                    <span class="stat-label">кружковцев</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">практика</span>
+                </div>
+            </div>
+            <a href="{{ url_for('directions') }}" class="link-underlined">Перейти в каталог направлений →</a>
+        </div>
+
+        <div class="bento-card card-purple-deep card-stickers">
+            <div class="sticker sticker-lime">ОТЗЫВ</div>
+            <div class="sticker sticker-lavender">вопрос</div>
+            <div class="sticker sticker-orange">запись</div>
+
+            <h3 class="card-action-title">Задать вопрос кафедре</h3>
+            <p class="card-desc">Старосты кружков и преподаватели на связи для консультаций по олимпиадам и статьям.</p>
+            <button class="btn btn-white-pill" onclick="document.getElementById('chatToggleBtn').click()">Начать диалог</button>
+        </div>
+
+        <div class="bento-card card-dark">
+            <h3>Школа юного медика</h3>
+            <div class="stats-row mini-stats">
+                <div class="stat-item">
+                    <span class="stat-number-sm">4</span>
+                    <span class="stat-label">группы</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number-sm">120</span>
+                    <span class="stat-label">школьников</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number-sm">Платно</span>
+                    <span class="stat-label">8–11 класс</span>
+                </div>
+            </div>
+            <a href="{{ url_for('apply', course='Школа юного медика') }}" class="btn btn-light-pill mt-3">Записать ребенка →</a>
+        </div>
+
+        <div class="bento-card card-lavender">
+            <h3>Ординатура и наука</h3>
+            <div class="stats-row mini-stats">
+                <div class="stat-item">
+                    <span class="stat-number-sm">18</span>
+                    <span class="stat-label">публикаций</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number-sm">6</span>
+                    <span class="stat-label">патентов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number-sm">РИНЦ</span>
+                    <span class="stat-label">индексация</span>
+                </div>
+            </div>
+            <a href="{{ url_for('gamification') }}" class="btn btn-light-pill mt-3">Смотреть рейтинг →</a>
+        </div>
+
+        <div class="bento-card card-lavender card-span-2">
+            <h3>Симуляционный центр и аккредитация</h3>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-number">24</span>
+                    <span class="stat-label">робота-симулятора</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">станций ОСКЭ</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">доступ резидентов</span>
+                </div>
+            </div>
+            <a href="{{ url_for('gallery') }}" class="link-underlined white-link">Фотоотчеты с практик →</a>
+        </div>
+
+        <div class="bento-card card-white">
+            <div class="badge-icon">🎖</div>
+            <h3>Военно-полевая хирургия</h3>
+            <p class="card-desc">Тактическая медицина, остановка критических кровотечений и эвакуация раненых.</p>
+            <a href="{{ url_for('apply', course='Экстренная медицина и BLS') }}" class="btn btn-primary-pill">Записаться</a>
+        </div>
+
+        <div class="bento-card card-orange">
+            <h3>Сертификационные циклы</h3>
+            <p class="card-desc">Практикумы по базовой сердечно-легочной реанимации (BLS) и шовной технике.</p>
+            <a href="{{ url_for('apply') }}" class="btn btn-white-pill">Подать заявку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

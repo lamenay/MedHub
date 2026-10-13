@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Административная панель | МедХаб{% endblock %}
+
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header">
+        <h2>Панель суперадминистратора «МедХаб»</h2>
+        <span class="pill-badge">Полный доступ</span>
+    </div>
+
+    <div class="stats-row mb-4">
+        <div class="bento-card card-dark">
+            <span class="stat-number">{{ users|length }}</span>
+            <span class="stat-label">Пользователей</span>
+        </div>
+        <div class="bento-card card-orange">
+            <span class="stat-number">{{ applications|length }}</span>
+            <span class="stat-label">Всего заявок</span>
+        </div>
+        <div class="bento-card card-lavender">
+            <span class="stat-number">{{ courses|length }}</span>
+            <span class="stat-label">Активных курсов</span>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h3>Зарегистрированные пользователи системы</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО</th>
+                    <th>Email</th>
+                    <th>Роль</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.full_name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td><code>{{ u.role }}</code></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

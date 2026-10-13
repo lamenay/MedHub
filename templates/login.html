@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Авторизация | МедХаб{% endblock %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Вход в систему «МедХаб»</h2>
+        <p class="auth-subtitle">Личный кабинет кружковца, преподавателя или администратора</p>
+
+        <form method="POST" action="{{ url_for('login') }}" class="med-form">
+            <div class="form-group">
+                <label>Электронная почта</label>
+                <input type="email" name="email" placeholder="example@medhub.ru" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary-pill w-100">Войти в кабинет</button>
+        </form>
+
+        <div class="demo-credentials">
+            <strong>Тестовые учетные записи для входа:</strong>
+            <ul>
+                <li>Администратор: <code>admin@medhub.ru</code> / <code>admin123</code></li>
+                <li>Преподаватель/староста: <code>doc@medhub.ru</code> / <code>doc123</code></li>
+                <li>Студент/посетитель: <code>student@medhub.ru</code> / <code>student123</code></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

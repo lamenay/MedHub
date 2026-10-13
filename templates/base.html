@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}МедХаб | Платформа медицинских кружков{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">✚</span>
+                <span class="logo-text">МедХаб</span>
+            </a>
+
+            <!-- Поисковая строка перенаправляет на отдельную страницу направлений -->
+            <form action="{{ url_for('directions') }}" method="GET" class="header-search">
+                <input type="text" name="search" placeholder="Поиск кружка" value="{{ search_query or '' }}">
+                <button type="submit">Найти</button>
+            </form>
+
+            <nav class="header-nav">
+                <a href="{{ url_for('index') }}" class="nav-link">Главная</a>
+                <a href="{{ url_for('directions') }}" class="nav-link">Кружки</a>
+                <a href="{{ url_for('gamification') }}" class="nav-link">Древо достижений</a>
+                <a href="{{ url_for('gallery') }}" class="nav-link">Жизнь клуба</a>
+                <a href="{{ url_for('apply') }}" class="nav-link">Запись</a>
+                <a href="{{ url_for('docs') }}" class="nav-link">Документы</a>
+
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary-pill">
+                        Кабинет ({{ current_user.full_name.split()[0] }})
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-pill">Выход</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary-pill">Вход в ЛК →</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container flash-container">
+                    {% for category, msg in messages %}
+                        <div class="alert alert-{{ category }}">{{ msg }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <div class="logo white-logo">
+                    <span class="logo-icon">✚</span>
+                    <span class="logo-text">МедХаб</span>
+                </div>
+                <p>Единая цифровая платформа студенческих научных обществ и школы юного медика.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Разделы сайта</h4>
+                <ul>
+                    <li><a href="{{ url_for('directions') }}">Каталог кружков и секций</a></li>
+                    <li><a href="{{ url_for('gamification') }}">Древо достижений кружковца</a></li>
+                    <li><a href="{{ url_for('gallery') }}">Фотогалерея практических занятий</a></li>
+                    <li><a href="{{ url_for('apply') }}">Подать заявку на участие</a></li>
+                    <li><a href="{{ url_for('docs') }}">Регламенты и документация</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Безопасность и стандарты</h4>
+                <p>🔒 HTTPS / SSL-сертификат</p>
+                <p>🛡 Защита персональных данных (ФЗ-152)</p>
+                <p>📍 Клинические базы и симуляционные центры</p>
+                <p>© 2026 «МедХаб». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Виджет чата -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-toggle-btn" id="chatToggleBtn">
+            <span class="chat-avatar">👨‍⚕️</span>
+            <span class="chat-status-badge online"></span>
+            <span class="chat-toggle-text">Дежурный куратор</span>
+        </button>
+
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <strong>Консультация МедХаб</strong>
+                    <span class="status-online-text">● Онлайн</span>
+                </div>
+                <button class="chat-close-btn" id="chatCloseBtn">✕</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-bubble incoming">
+                    Здравствуйте! Чем могу помочь? Подсказать расписание кружков или как записаться на практику?
+                </div>
+            </div>
+            <form class="chat-input-row" id="chatForm">
+                <input type="text" id="chatInput" placeholder="Напишите вопрос..." required autocomplete="off">
+                <button type="submit">➤</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Запись на занятия | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section section-conversion">
+    <div class="container conversion-grid">
+        <div class="conversion-form-card">
+            <h3>Запись на практические занятия</h3>
+            <p class="form-desc">Заполните заявку, и староста профильного направления свяжется с вами для подтверждения.</p>
+
+            <form action="{{ url_for('apply') }}" method="POST" class="med-form">
+                <div class="form-group">
+                    <label>ФИО студента *</label>
+                    <input type="text" name="parent_or_student_name" placeholder="Иванов Алексей Петрович" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Электронная почта (E-mail) *</label>
+                        <input type="email" name="email" placeholder="alex@mail.ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Контактный телефон *</label>
+                        <input type="tel" name="phone" placeholder="+7 (900) 000-00-00" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Выберите интересующее направление</label>
+                    <select name="course_name" id="courseSelect">
+                        {% for course in courses %}
+                            <option value="{{ course.title }}" {% if preselected_course == course.title %}selected{% endif %}>
+                                {{ course.title }} ({{ course.category }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group captcha-group">
+                    <label>Защита от спама: сколько будет 4 + 3? *</label>
+                    <input type="text" name="captcha_check" placeholder="Введите ответ числом" required>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="consent" name="consent" required checked>
+                    <label for="consent">Согласен(на) на обработку персональных данных согласно ФЗ-152</label>
+                </div>
+
+                <button type="submit" class="btn btn-orange-submit">Отправить заявку в МедХаб →</button>
+            </form>
+        </div>
+
+        <div class="conversion-info-card">
+            <div class="safety-badges">
+                <div class="safety-badge">
+                    <span class="badge-icon">✓</span>
+                    <div>
+                        <strong>Верифицированные преподаватели</strong>
+                        <p>Занятия ведут доценты, профессора и практикующие врачи клинических больниц.</p>
+                    </div>
+                </div>
+                <div class="safety-badge">
+                    <span class="badge-icon">✓</span>
+                    <div>
+                        <strong>Клинические базы и симуляторы</strong>
+                        <p>Официальные аккредитованные базы кафедр и симуляционные классы.</p>
+                    </div>
+                </div>
+                <div class="safety-badge">
+                    <span class="badge-icon">✓</span>
+                    <div>
+                        <strong>Безопасность персональных данных</strong>
+                        <p>Данные хранятся в строгом соответствии с требованиями законодательства РФ.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contacts-block">
+                <h4>Контакты кафедры:</h4>
+                <p>📍 г. Уфа, УУНИТ, корпус 5, ауд. 413</p>
+                <p>📞 +7 (937) 153-59-55 (Секретариат)</p>
+                <p>⏰ График заседаний: вторник, четверг с 17:30</p>
+                <p>✉ medhub@uust.ru</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

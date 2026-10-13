@@ -1,0 +1,16 @@
+[build]
+  publish = "static"
+  functions = "netlify/functions"
+
+[functions]
+  included_files = ["templates/**"]
+
+[[redirects]]
+  from = "/static/*"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/app"
+  status = 200

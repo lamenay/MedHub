@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет студента | МедХаб{% endblock %}
+
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header">
+        <h2>Личный кабинет кружковца: {{ user.full_name }}</h2>
+        <span class="pill-badge">Статус: Резидент СНК</span>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="bento-card card-purple-deep">
+            <h3>Текущий ранг</h3>
+            <div class="stat-number">Уровень 3</div>
+            <p>Докладчик-исследователь (75 баллов активности)</p>
+        </div>
+        <div class="bento-card card-white">
+            <h3>Мои записи на занятия</h3>
+            <ul class="simple-list">
+                <li>🩺 <strong>Хирургия:</strong> Четверг, 18:00 (Ауд. 4) — подтверждено</li>
+                <li>📑 <strong>Клинический разбор:</strong> Вторник, 17:30 — оппонент</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

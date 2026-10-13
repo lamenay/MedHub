@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Жизнь клуба и фотогалерея | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Жизнь клуба: реальная практика</h2>
+        <p class="section-subtitle">Сетка фотографий с реальных оффлайн- и онлайн-занятий на кафедрах и в больницах</p>
+
+        <div class="gallery-grid">
+            <!-- Большая карточка слева -->
+            <div class="gallery-item item-large">
+                <div class="gallery-card">
+                    <img src="{{ url_for('static', filename='images/yesman.jpg') }}" alt="Симуляционный центр">
+                    <div class="gallery-caption">
+                        <span>Симуляционный центр: отработка базовой сердечно-легочной реанимации</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Верхняя средняя карточка -->
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="{{ url_for('static', filename='images/yesman.jpg') }}" alt="Анатомический практикум">
+                    <div class="gallery-caption">
+                        <span>Анатомический практикум и коллекция препаратов</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Нижняя средняя карточка -->
+            <div class="gallery-item">
+                <div class="gallery-card">
+                    <img src="{{ url_for('static', filename='images/surgery.jpg') }}" alt="Хирургия">
+                    <div class="gallery-caption">
+                        <span>Хирургическая секция: техника сосудистого шва</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Нижняя широкая карточка -->
+            <div class="gallery-item item-wide">
+                <div class="gallery-card">
+                    <img src="{{ url_for('static', filename='images/council.jpg') }}" alt="Клинический консилиум">
+                    <div class="gallery-caption">
+                        <span>Межкафедральный клинический разбор и студенческий консилиум</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Кружки и направления | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Каталог медицинских кружков и секций</h2>
+        <p class="section-subtitle">Выберите модуль для углубленного изучения и практики на клинических базах</p>
+
+        {% if search_query %}
+            <p class="search-result-info">Результаты поиска по запросу: <strong>«{{ search_query }}»</strong> (<a href="{{ url_for('directions') }}">Сбросить фильтр</a>)</p>
+        {% endif %}
+
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card {{ course.accent_class }}">
+                <div class="course-badge">{{ course.category }}</div>
+                <h3 class="course-title">{{ course.title }}</h3>
+                <p class="course-audience">🎯 <strong>Аудитория:</strong> {{ course.audience }}</p>
+                <p class="course-schedule">🕒 <strong>Расписание:</strong> {{ course.schedule }}</p>
+                <p class="course-desc">{{ course.description }}</p>
+                <div class="course-footer">
+                    <a href="{{ url_for('apply', course=course.title) }}" class="btn btn-light-pill">Подать заявку →</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <p>По вашему запросу кружков не найдено. Попробуйте изменить поисковый запрос.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

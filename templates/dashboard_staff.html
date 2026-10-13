@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Панель куратора | МедХаб{% endblock %}
+
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header">
+        <h2>Панель куратора / старосты: {{ user.full_name }}</h2>
+        <span class="pill-badge">Роль: Работник кафедры</span>
+    </div>
+
+    <div class="table-card">
+        <h3>Входящие заявки на кружки и практику</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО заявителя</th>
+                    <th>Контакты</th>
+                    <th>Выбранный курс</th>
+                    <th>Дата подачи</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>#{{ app.id }}</td>
+                    <td><strong>{{ app.parent_or_student_name }}</strong></td>
+                    <td>{{ app.phone }}<br><small>{{ app.email }}</small></td>
+                    <td>{{ app.course_name }}</td>
+                    <td>{{ app.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td><span class="badge-status in-progress">{{ app.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">Новых заявок пока нет.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
