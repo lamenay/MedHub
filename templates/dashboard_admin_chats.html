@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Чаты пользователей | МедХаб{% endblock %}
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header"><h2>Обращения пользователей</h2><span class="pill-badge">Администратор</span></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 24px">
+        <a class="btn btn-outline-pill" href="{{ url_for('dashboard_admin') }}">Пользователи и роли</a>
+        <a class="btn btn-primary-pill" href="{{ url_for('dashboard_admin_chats') }}">Чаты пользователей</a>
+    </div>
+    <div class="table-card" style="padding:20px">
+        <h3>История переписки по пользователям</h3>
+        {% for thread in chat_threads %}
+            <details style="padding:14px 0;border-bottom:1px solid #ddd" {% if loop.first %}open{% endif %}>
+                <summary style="cursor:pointer;font-weight:700">{{ thread.user.full_name }} — {{ thread.user.email }} ({{ thread.messages|length }} сообщ.)</summary>
+                <div id="chat-thread-{{ thread.user.id }}" style="max-height:360px;overflow:auto;padding:12px;background:#f7f7f9;border-radius:10px;margin:12px 0">
+                    {% for message in thread.messages %}<p style="margin:8px 0"><strong>{{ message.sender }}</strong> <small>{{ message.timestamp.strftime('%d.%m.%Y %H:%M') }}</small><br>{{ message.text }}</p>{% endfor %}
+                </div>
+                <form class="admin-chat-reply" data-user-id="{{ thread.user.id }}" style="display:flex;gap:8px">
+                    <input type="text" name="text" placeholder="Ответить пользователю..." required style="flex:1;padding:10px;border:1px solid #ccc;border-radius:8px">
+                    <button class="btn btn-primary-pill" type="submit">Отправить</button>
+                </form>
+            </details>
+        {% else %}<p>Пока нет обращений от пользователей.</p>{% endfor %}
+    </div>
+</div>
+<script>
+document.querySelectorAll('.admin-chat-reply').forEach(form => {
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const input = form.querySelector('input[name="text"]');
+        const text = input.value.trim();
+        if (!text) return;
+        const response = await fetch('{{ url_for("api_chat") }}', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text, user_id: Number(form.dataset.userId)})
+        });
+        if (response.ok) location.reload();
+        else alert('Не удалось отправить сообщение.');
+    });
+});
+</script>
+{% endblock %}

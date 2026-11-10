@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Административная панель | МедХаб{% endblock %}
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header"><h2>Панель администратора «МедХаб»</h2><span class="pill-badge">Полный доступ</span></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 24px">
+        <a class="btn btn-primary-pill" href="{{ url_for('dashboard_admin') }}">Пользователи и роли</a>
+        <a class="btn btn-outline-pill" href="{{ url_for('dashboard_admin_chats') }}">Чаты пользователей</a>
+    </div>
+    <div class="stats-row mb-4">
+        <div class="bento-card card-dark"><span class="stat-number">{{ users|length }}</span><span class="stat-label">Пользователей</span></div>
+        <div class="bento-card card-orange"><span class="stat-number">{{ applications|length }}</span><span class="stat-label">Всего заявок</span></div>
+        <div class="bento-card card-lavender"><span class="stat-number">{{ courses|length }}</span><span class="stat-label">Активных курсов</span></div>
+    </div>
+
+    <div class="table-card" style="padding:20px;margin-bottom:24px">
+        <h3>Создать новый курс</h3>
+        <p>Новый курс сразу появится в каталоге кружков и станет доступен для подачи заявок.</p>
+        <form method="POST" action="{{ url_for('dashboard_admin') }}" class="med-form">
+            <input type="hidden" name="action" value="create_course">
+            <div class="form-group"><label for="course_title">Название курса</label><input id="course_title" name="title" maxlength="150" required></div>
+            <div class="form-group"><label for="course_category">Категория</label><input id="course_category" name="category" maxlength="100" required></div>
+            <div class="form-group"><label for="course_audience">Для кого предназначен</label><input id="course_audience" name="audience" maxlength="100" required></div>
+            <div class="form-group"><label for="course_schedule">Расписание</label><input id="course_schedule" name="schedule" maxlength="150" placeholder="Например: Пн 17:00" required></div>
+            <div class="form-group"><label for="course_description">Описание</label><textarea id="course_description" name="description" rows="4" required></textarea></div>
+            <div class="form-group"><label for="accent_class">Оформление карточки</label><select id="accent_class" name="accent_class"><option value="card-purple">Фиолетовое</option><option value="card-dark">Тёмное</option><option value="card-orange">Оранжевое</option><option value="card-lavender">Светло-фиолетовое</option></select></div>
+            <button type="submit" class="btn btn-primary-pill">Создать курс</button>
+        </form>
+    </div>
+
+    <div class="table-card" style="padding:20px;margin-bottom:24px">
+        <h3>Добавить работника кафедры</h3>
+        <p>Выберите зарегистрированного пользователя. Новая учётная запись не создаётся — меняется роль существующей.</p>
+        <form method="POST" action="{{ url_for('dashboard_admin') }}" class="med-form" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <select name="user_id" required style="min-width:260px;padding:12px;border-radius:10px">
+                <option value="">Выберите пользователя</option>
+                {% for candidate in staff_candidates %}<option value="{{ candidate.id }}">{{ candidate.full_name }} — {{ candidate.email }}</option>{% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary-pill" {% if not staff_candidates %}disabled{% endif %}>Назначить работником кафедры</button>
+        </form>
+        {% if not staff_candidates %}<p>Нет пользователей со студенческой ролью, которым можно назначить эту роль.</p>{% endif %}
+    </div>
+
+    <div class="table-card" style="margin-bottom:24px">
+        <h3>Курсы в каталоге</h3>
+        <table class="data-table"><thead><tr><th>ID</th><th>Название</th><th>Категория</th><th>Расписание</th></tr></thead><tbody>
+        {% for course in courses %}<tr><td>{{ course.id }}</td><td>{{ course.title }}</td><td>{{ course.category }}</td><td>{{ course.schedule }}</td></tr>{% else %}<tr><td colspan="4">Курсов пока нет.</td></tr>{% endfor %}
+        </tbody></table>
+    </div>
+
+    <div class="table-card" style="margin-bottom:24px">
+        <h3>Зарегистрированные пользователи системы</h3>
+        <table class="data-table"><thead><tr><th>ID</th><th>ФИО</th><th>Email</th><th>Роль</th></tr></thead><tbody>
+        {% for u in users %}<tr><td>{{ u.id }}</td><td>{{ u.full_name }}</td><td>{{ u.email }}</td><td><code>{{ u.role }}</code></td></tr>{% endfor %}
+        </tbody></table>
+    </div>
+
+
+</div>
+
+{% endblock %}

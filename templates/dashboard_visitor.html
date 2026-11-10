@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет студента | МедХаб{% endblock %}
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header"><h2>Личный кабинет кружковца: {{ user.full_name }}</h2><span class="pill-badge">Статус: Резидент СНК</span></div>
+    <div class="table-card">
+        <h3>Мои заявки на занятия</h3>
+        <table class="data-table"><thead><tr><th>Курс</th><th>Дата подачи</th><th>Статус</th></tr></thead><tbody>
+        {% for application in applications %}<tr><td>{{ application.course.title }}</td><td>{{ application.created_at.strftime('%d.%m.%Y %H:%M') }}</td><td>{{ application.status }}</td></tr>
+        {% else %}<tr><td colspan="3" style="text-align:center">Вы пока не подавали заявок. <a href="{{ url_for('directions') }}">Выбрать курс</a>.</td></tr>{% endfor %}
+        </tbody></table>
+        <p style="padding:16px"><a href="{{ url_for('directions') }}" class="btn btn-primary-pill">Посмотреть курсы</a></p>
+    </div>
+</div>
+{% endblock %}

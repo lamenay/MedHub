@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Документация и регламенты | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Необходимая документация и регламенты</h2>
+        <p class="section-subtitle">Официальные положения о деятельности студенческого научного кружка</p>
+
+        <div class="docs-list">
+            <div class="doc-item">
+                <div class="doc-icon">📄</div>
+                <div class="doc-info">
+                    <h4>Положение о студенческом научном кружке (СНК)</h4>
+                    <p>Регламентирует порядок вступления, права и обязанности кружковцев и правила начисления рейтинговых баллов.</p>
+                </div>
+                <a href="#" class="btn btn-outline-pill">Скачать PDF</a>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon">🦺</div>
+                <div class="doc-info">
+                    <h4>Инструкция по технике безопасности в симуляционном центре</h4>
+                    <p>Правила эксплуатации фантомов, тренажеров для наложения швов и электронных роботов-симуляторов.</p>
+                </div>
+                <a href="#" class="btn btn-outline-pill">Скачать PDF</a>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-icon">🔒</div>
+                <div class="doc-info">
+                    <h4>Политика конфиденциальности и защита данных (ФЗ-152)</h4>
+                    <p>Порядок сбора, хранения и обработки персональных данных студентов, родителей и школьников на портале.</p>
+                </div>
+                <a href="#" class="btn btn-outline-pill">Скачать PDF</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Жизнь клуба и фотогалерея | МедХаб{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Жизнь клуба: реальная практика</h2>
+        <p class="section-subtitle">Сетка фотографий с реальных оффлайн- и онлайн-занятий на кафедрах и в больницах</p>
+
+        <div class="gallery-grid">
+            {% for event in events %}
+            <div class="gallery-item {% if loop.first %}item-large{% elif loop.last %}item-wide{% endif %}">
+                <div class="gallery-card">
+                    <img src="{{ url_for('static', filename=event.file) }}" alt="{{ event.name }}">
+                    <div class="gallery-caption"><span>{{ event.name }}</span></div>
+                </div>
+            </div>
+            {% else %}
+            <div class="empty-state"><p>Фотографии пока не добавлены.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

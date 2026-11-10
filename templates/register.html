@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация | МедХаб{% endblock %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Регистрация в «МедХаб»</h2>
+        <p class="auth-subtitle">Создайте личный кабинет, чтобы записываться на курсы и отслеживать заявки</p>
+        <form method="POST" action="{{ url_for('register') }}" class="med-form">
+            <div class="form-group">
+                <label for="full_name">ФИО</label>
+                <input id="full_name" type="text" name="full_name" placeholder="Иванов Иван Иванович" maxlength="120" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Электронная почта</label>
+                <input id="email" type="email" name="email" placeholder="example@medhub.ru" maxlength="120" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input id="password" type="password" name="password" placeholder="Не менее 8 символов" minlength="8" required autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn btn-primary-pill w-100">Создать аккаунт</button>
+        </form>
+        <p style="margin-top:20px;text-align:center">Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
+        <p class="demo-credentials">После регистрации автоматически создаётся учётная запись с ролью студента.</p>
+    </div>
+</div>
+{% endblock %}

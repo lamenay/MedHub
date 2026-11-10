@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Панель работника кафедры | МедХаб{% endblock %}
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header"><h2>Панель работника кафедры: {{ user.full_name }}</h2><span class="pill-badge">Роль: Работник кафедры</span></div>
+    <div class="table-card">
+        <h3>Заявки на кружки и практику</h3>
+        <table class="data-table">
+            <thead><tr><th>ID</th><th>ФИО заявителя</th><th>Контакты</th><th>Курс</th><th>Дата подачи</th><th>Статус</th><th>Действие</th></tr></thead>
+            <tbody>
+            {% for app in applications %}
+                <tr>
+                    <td>#{{ app.id }}</td><td><strong>{{ app.user.full_name }}</strong></td>
+                    <td>{{ app.phone }}<br><small>{{ app.user.email }}</small></td>
+                    <td>{{ app.course.title }}</td><td>{{ app.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td>{{ app.status }}</td><td><a class="btn btn-primary-pill" href="{{ url_for('staff_application_detail', application_id=app.id) }}">Рассмотреть</a></td>
+                </tr>
+            {% else %}<tr><td colspan="7" style="text-align:center">Заявок пока нет.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

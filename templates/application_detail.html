@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Рассмотрение заявки #{{ application.id }} | МедХаб{% endblock %}
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header"><h2>Заявка #{{ application.id }}</h2><a href="{{ url_for('dashboard_staff') }}" class="btn btn-outline-pill">← К списку заявок</a></div>
+    <div class="table-card" style="padding:24px;margin-bottom:24px">
+        <h3>Информация о заявке</h3>
+        <p><strong>Дата и время подачи:</strong> {{ application.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+        <p><strong>Курс:</strong> {{ application.course.title }}</p>
+        <p><strong>Описание курса:</strong> {{ application.course.description }}</p>
+        <p><strong>ФИО пользователя:</strong> {{ application.user.full_name }}</p>
+        <p><strong>E-mail:</strong> {{ application.user.email }}</p>
+        <p><strong>Телефон:</strong> {{ application.phone }}</p>
+        <p><strong>Текущий статус:</strong> {{ application.status }}</p>
+    </div>
+    <div class="table-card">
+        <h3>Заявки пользователя</h3>
+        <p><strong>Всего подано заявок на курсы:</strong> {{ user_applications|length }}</p>
+        <table class="data-table"><thead><tr><th>Курс</th><th>Дата подачи</th><th>Статус</th></tr></thead><tbody>
+        {% for item in user_applications %}<tr><td>{{ item.course.title }}</td><td>{{ item.created_at.strftime('%d.%m.%Y %H:%M') }}</td><td>{{ item.status }}</td></tr>{% endfor %}
+        </tbody></table>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;padding:20px">
+            <form method="POST" action="{{ url_for('staff_application_decision', application_id=application.id) }}"><input type="hidden" name="decision" value="accept"><button class="btn btn-primary-pill" type="submit" {% if application.status == 'In progress' %}disabled{% endif %}>Принять заявку</button></form>
+            <form method="POST" action="{{ url_for('staff_application_decision', application_id=application.id) }}"><input type="hidden" name="decision" value="reject"><button class="btn btn-outline-pill" type="submit" {% if application.status == 'Expelled' %}disabled{% endif %}>Отклонить заявку</button></form>
+        </div>
+    </div>
+</div>
+{% endblock %}
